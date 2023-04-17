@@ -84,16 +84,13 @@ Use the getCPUTime :: IO Integer function to get the CPU time before and after t
 The CPU time here is given in picoseconds (which is 1/1000000000000th of a second).
 -}
 
-{-
+
 timeIO :: IO a -> IO ()
--- timeIO = getCPUTime >>= (\t -> putStrLn $ show $ t)
-timeIO = do
+timeIO io= do
           before <- getCPUTime
-          putStrLn $ show $ before
-          primes1 10000
+          io
           after <- getCPUTime
-          return $ before - after
--}
+          putStrLn $ show (before - after)
 
 {-
 -- Question 4 --
