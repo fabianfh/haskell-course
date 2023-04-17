@@ -72,17 +72,17 @@ testMaze = Passage Wall (Passage Exit Wall Wall) (Passage Wall Wall Wall)
 
 
 solveMaze :: Maze -> [Move] -> Maze
-solveMaze maze []   = maze
-solveMaze maze (m:ms) = solveMaze (move maze m) ms 
+-- solveMaze maze []   = maze
+-- solveMaze maze (m:ms) = solveMaze (move maze m) ms 
+solveMaze maze ms = foldl move maze ms
 
-showCurrentChoice :: Maze -> [Move] -> String
-showCurrentChoice maze ms = case solveMaze maze ms of 
-                                Wall -> "Hit Wall"
-                                Exit -> "Found Exit"
-                                otherwise -> "Keep searching"
+showCurrentChoice :: Maze -> String
+showCurrentChoice Wall = "Hit Wall"
+showCurrentChoice Exit = "Found Exit"
+showCurrentChoice _    =  "Keep searching"
 
-solveMaze' :: Maze -> [Move] -> Maze
-solveMaze' maze ms = showCurrentChoice maze ms
+solveMaze' :: Maze -> [Move] -> String
+solveMaze' maze ms = showCurrentChoice $ foldl move maze ms
 
 
 
