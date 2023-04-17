@@ -58,10 +58,12 @@ still need to make another choice.
 
 data Move = GoLeft | GoRight| GoForward
 
-data Maze = True
+data Maze = Exit | Wall | Passage Maze Maze Maze deriving (Show)
 
 move :: Maze -> Move -> Maze
-move = undefined
+move Exit _ = undefined
+move Wall m = undefined
+move Passage 
 
 testMaze :: Maze
 testMaze = undefined
