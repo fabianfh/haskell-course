@@ -1,5 +1,6 @@
-{-
+import Data.List
 
+{-
 **************************** IMPORTANT ****************************
 
 This week is a two-step homework. First, you have to solve the
@@ -39,6 +40,7 @@ step-by-step just in case:
 1. Write two data types. One for the moves (Move) you can make, and another for the maze (Maze).
 (Use the example above to figure them out.)
 
+
 2. Write a function called "move" that takes a maze and a move and returns the maze after the move.
 
 3. Write a "testMaze" value of type "Maze" and test the "move" function in GHCi.
@@ -53,3 +55,34 @@ still need to make another choice.
 
 6. Adapt adapt "solveMaze" function to use "showCurrentChoice" and play with your new game using GHCi! :D
 -}
+
+data Move = GoLeft | GoRight| GoForward
+
+data Maze = True
+
+move :: Maze -> Move -> Maze
+move = undefined
+
+testMaze :: Maze
+testMaze = undefined
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
