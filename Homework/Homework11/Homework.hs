@@ -19,16 +19,30 @@ Define an IO action that counts the number of files in the current directory
 and prints it to the terminal inside a string message.
 -}
 
--- listFiles :: IO ()
+listFiles :: IO ()
+-- listFiles  = (listDirectory "..") >>= (\(x:xs) -> putStrLn x)
+-- listFiles = fmap putStrLn $ fmap show $ fmap length (listDirectory "..")
+listFiles  = (listDirectory "..") >>= (\xs -> putStrLn $ show $ length xs)
+
 
 {-
--- Question 2 --
+-- Question 2 --path
 Write an IO action that asks the user to type something, then writes the message
 to a file called msg.txt, and after that, it reads the text from the msg.txt
 file and prints it back. Use the writeFile and readFile functions.
 -}
 
--- createMsg :: IO ()
+createMsg :: IO ()
+createMsg = do
+              xs <- getLine  
+              writeFile "msg.txt" xs
+              ys <- readFile "msg.txt"
+              putStrLn ys
+
+
+createMsg2 :: IO ()
+createMsg2 = do
+              getLine >>= writeFile "msg.txt" >> readFile "msg.txt" >>= putStrLn 
 
 
 {-
@@ -70,8 +84,16 @@ Use the getCPUTime :: IO Integer function to get the CPU time before and after t
 The CPU time here is given in picoseconds (which is 1/1000000000000th of a second).
 -}
 
--- timeIO :: IO a -> IO ()
-
+{-
+timeIO :: IO a -> IO ()
+-- timeIO = getCPUTime >>= (\t -> putStrLn $ show $ t)
+timeIO = do
+          before <- getCPUTime
+          putStrLn $ show $ before
+          primes1 10000
+          after <- getCPUTime
+          return $ before - after
+-}
 
 {-
 -- Question 4 --

@@ -3,7 +3,6 @@
 -- the value provided as every element of the list.
 --
 -- >>> repeat 17
---[17,17,17,17,17,17,17,17,17...
 
 
 -- Question 2
@@ -25,6 +24,10 @@
 -- >>> concat' [[1,2],[3],[4,5,6]]
 -- [1,2,3,4,5,6]
 
+concat' :: [a] -> [a] -> [a]
+concat' [] ys = ys
+concat' (x:xs) ys = x:concat' xs ys
+
 
 -- Question 4
 -- Write a function called `zip'` that takes two lists and returns a list of
@@ -45,6 +48,10 @@
 -- >>> zip' [1..] []
 -- []
 
+zip' :: [a] -> [b] -> [(a,b)]
+zip' [] ys = []
+zip' xs [] = []
+zip' (x:xs) (y:ys) = (x,y):zip' xs ys
 
 
 -- Question 5
@@ -61,6 +68,12 @@
 -- [5,7,9]
 
 
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] ys = []
+zipWith' _ xs [] = []
+zipWith' f (x:xs) (y:ys) = (f x y):(zipWith f xs ys)
+
+
 -- Question 6
 -- Write a function called `takeWhile'` that takes a precate and a list and
 -- returns the list up until an element that doesn't satisfy the predicate.
@@ -72,10 +85,19 @@
 -- >>> takeWhile (< 0) [1,2,3]
 -- []
 
+takeWhile' :: (a -> Bool) -> [a] -> [a]
+takeWhile' p (x:xs) = if p x then (x:takeWhile' p xs) else [] 
+
 
 -- Question 7 (More difficult)
 -- Write a function that takes in an integer n, calculates the factorial n! and
 -- returns a string in the form of 1*2* ... *n = n! where n! is the actual result.
+
+fact :: (String,Int) -> (String,Int)
+fact ([],1) = (show 1,1)
+fact (xs,n) = let (xs',fct) = fact (xs,n-1)
+                  fct' = fct * n
+              in (show fct ++ ['*'] ++ xs',fct')
 
 
 -- Question 8
