@@ -61,12 +61,28 @@ data Move = GoLeft | GoRight| GoForward
 data Maze = Exit | Wall | Passage Maze Maze Maze deriving (Show)
 
 move :: Maze -> Move -> Maze
-move Exit _ = undefined
-move Wall m = undefined
-move Passage 
+move Exit _ = Exit
+move Wall _ = Wall
+move (Passage x _ _) GoLeft = x
+move (Passage _ x _) GoForward = x
+move (Passage _ _ x) GoRight = x
 
 testMaze :: Maze
-testMaze = undefined
+testMaze = Passage Wall (Passage Exit Wall Wall) (Passage Wall Wall Wall)
+
+
+solveMaze :: Maze -> [Move] -> Maze
+solveMaze maze []   = maze
+solveMaze maze (m:ms) = solveMaze (move maze m) ms 
+
+showCurrentChoice :: Maze -> [Move] -> String
+showCurrentChoice maze ms = case solveMaze maze ms of 
+                                Wall -> "Hit Wall"
+                                Exit -> "Found Exit"
+                                otherwise -> "Keep searching"
+
+solveMaze' :: Maze -> [Move] -> Maze
+solveMaze' maze ms = showCurrentChoice maze ms
 
 
 
