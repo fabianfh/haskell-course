@@ -20,7 +20,6 @@ and prints it to the terminal inside a string message.
 -}
 
 listFiles :: IO ()
--- listFiles  = (listDirectory "..") >>= (\(x:xs) -> putStrLn x)
 -- listFiles = fmap putStrLn $ fmap show $ fmap length (listDirectory "..")
 listFiles  = (listDirectory "..") >>= (\xs -> putStrLn $ show $ length xs)
 
@@ -85,12 +84,22 @@ The CPU time here is given in picoseconds (which is 1/1000000000000th of a secon
 -}
 
 
+-- timeIO :: IO a -> IO ()
+-- timeIO io= do
+--           before <- getCPUTime
+--           io
+--           after <- getCPUTime
+--           putStrLn $ show (before - after)
+
+
 timeIO :: IO a -> IO ()
-timeIO io= do
-          before <- getCPUTime
-          io
-          after <- getCPUTime
-          putStrLn $ show (before - after)
+timeIO io = do
+  initTime <- getCPUTime
+  result <- io
+  finalTime <- getCPUTime
+  let diff = fromIntegral (finalTime - initTime) / 1000000000000
+  putStrLn $ "Time used for the IO action is: " ++ show diff ++ " seconds"
+
 
 {-
 -- Question 4 --
@@ -99,7 +108,19 @@ and compares the time all three algorithms take to produce the largest prime bef
 limit. Print the number and time to the standard output.
 -}
 
--- benchmark :: IO ()
+benchmark :: IO ()
+benchmark = do
+              limit <- fmap read getLine :: IO Integer
+              t0 <- getCPUTime
+              let p1 = head $ reverse $ primes1 limit;
+              t1 <- getCPUTime
+              let p2 = head $ reverse $ primes2 limit;
+              t2 <- getCPUTime
+              let p3 = head $ reverse $ primes3 limit;
+              t3 <- getCPUTime
+              putStrLn  ("primes1: " ++ show  p1 ++ " ;primes1 time: " ++ show (t1 -t0)) >>
+                putStrLn  ("primes2: " ++ show  p2 ++ " ;primes2 time: " ++ show (t2 -t0))>>
+                putStrLn  ("primes3: " ++ show  p3 ++ " ;primes3 time: " ++ show (t3 -t0))
 
 {-
  -- Question 5 -- EXTRA CREDITS -- (In case the previous ones were too easy)
@@ -121,3 +142,6 @@ Below you can see an example output of how such a structure looks like:
 HINT: You can use the function doesFileExist, which takes in a FilePath and returns
 True if the argument file exists and is not a directory, and False otherwise.
 -}
+
+subtree :: String -> IO ()
+subtree root  = (listDirectory root) >>= (\(x:xs) -> putStrLn x)
