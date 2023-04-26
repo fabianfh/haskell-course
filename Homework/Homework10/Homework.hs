@@ -12,23 +12,62 @@ Continuing with the logistics software of the lesson:
  	- The parameter `a` is the content of the MailedBox
 -}
 
+class Container c where
+  isEmpty :: c a -> Bool
+  contains:: (Eq a) =>  c a -> a -> Bool
+  replace :: c a -> b -> c b
+
+data Box a =  EmptyBox | Box a
+
+instance Container Box where
+  -- isEmpty :: c a -> Bool
+  isEmpty EmptyBox = True
+  isEmpty _ = False
+  
+  -- contains:: c a -> b -> Bool
+  contains EmptyBox _ = False   
+  contains (Box a) b = a == b
+
+  -- replace :: c a-> b -> c b
+  replace EmptyBox a = Box a
+  replace (Box a) b = Box b 
+
+
+
 data MailedBox t d a = EmptyMailBox t d | MailBoxTo t d a
+
+instance Container (MailedBox t d) where
+  -- isEmpty :: c a -> BoolMailedBox
+  isEmpty (EmptyMailBox t d)  = True
+  isEmpty _ = False 
+
+  -- contains:: c a -> b -> Bool
+  contains (EmptyMailBox t d) _  = False
+  contains (MailBoxTo t d a) b = a == b 
+
+  -- replace :: c a-> b -> c b
+  replace (EmptyMailBox t d) b  = MailBoxTo t d b
+  replace (MailBoxTo t d a) b = (MailBoxTo t d b) 
+
+
+
 
 -- Question 2 --
 -- Create instances for Show, Eq, and Ord for these three data types (use
 -- automatic deriving whenever possible):
 
-data Position = Intern | Junior | Senior | Manager | Chief
+data Position = Intern | Junior | Senior | Manager | Chief deriving (Show,Eq,Ord)
 
-data Experience = Programming | Managing | Leading
+data Experience = Programming | Managing | Leading deriving (Show,Eq,Ord)
 
-type Address = String
+type Address = String 
 
-data Salary = USD Double | EUR Double
+data Salary = USD Double | EUR Double deriving (Show,Eq,Ord)
 
 data Relationship
   = Contractor Position Experience Salary Address
   | Employee Position Experience Salary Address
+  deriving (Show,Eq)
 
 data Pokemon = Pokemon
   { pName :: String,
@@ -45,16 +84,29 @@ venusaur = Pokemon "Venusaur" ["Grass", "Poison"] 1 3
 -- Uncomment the next code and make it work (Google what you don't know).
 
 -- -- Team memeber experience in years
--- newtype Exp = Exp Double
---
+newtype Exp = Exp Double
+
 -- -- Team memeber data
--- type TeamMember = (String, Exp)
---
+type TeamMember = (String, Exp)
+
 -- -- List of memeber of the team
--- team :: [TeamMember]
--- team = [("John", Exp 5), ("Rick", Exp 2), ("Mary", Exp 6)]
---
--- -- Function to check the combined experience of the team
--- -- This function applied to `team` using GHCi should work
--- combineExp :: [TeamMember] -> Exp
--- combineExp = foldr ((+) . snd) 0
+team :: [TeamMember]
+team = [("John", Exp 5), ("Rick", Exp 2), ("Mary", Exp 6)]
+
+-- Function to check the combined experience of the team
+-- -- -- This function applied to `team` using GHCi should work
+combineExp :: [TeamMember] -> Exp
+combineExp = foldr ((+) . snd) 0
+
+
+
+
+
+
+
+
+
+
+
+
+
