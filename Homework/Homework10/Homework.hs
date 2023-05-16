@@ -96,7 +96,9 @@ team = [("John", Exp 5), ("Rick", Exp 2), ("Mary", Exp 6)]
 -- Function to check the combined experience of the team
 -- -- -- This function applied to `team` using GHCi should work
 combineExp :: [TeamMember] -> Exp
-combineExp = foldr ((+) . snd) 0
+combineExp = foldr ((+) . f) 0
+            where f :: TeamMember -> Double
+                  f (name, Exp e) = e 
 
 
 
