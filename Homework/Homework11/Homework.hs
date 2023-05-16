@@ -98,6 +98,7 @@ timeIO io = do
   result <- io
   finalTime <- getCPUTime
   let diff = fromIntegral (finalTime - initTime) / 1000000000000
+  --putStrLn $ "Time used for the IO action is: " ++ show (finalTime-initTime)
   putStrLn $ "Time used for the IO action is: " ++ show diff ++ " seconds"
 
 
