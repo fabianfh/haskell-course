@@ -1,6 +1,8 @@
 # Haskell Course
 
-[Versión en 🇪🇸](https://github.com/input-output-hk/haskell-course/tree/main/ES-translation)
+[Versión en 🇪🇸 traducida por la comunidad](https://github.com/input-output-hk/haskell-course/tree/main/ES-translation)
+
+> *The easiest way to learn Haskell* - R.M.
 
 **This course is designed to teach non-engineers (e.g., self-taught/bootcamp coders) Haskell from zero to productive in an interactive, easy-to-follow way.** The course doesn't contain content specific to [Marlowe](https://marlowe.iohk.io/) or [Plutus](https://plutus.readthedocs.io/en/latest/), but it will cover everything needed to work with them.
 
@@ -242,7 +244,7 @@ In this section, we learn about Haskell tooling and the necessary concepts to st
     - Controlling environments
     - Controlling namespaces
 - Creating our own Modules
-- The Prelude and Standard Libraries
+- The `Prelude` and Standard Libraries
 
 ### 14. Cabal and language extensions [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F14-Cabal_and_language_extensions.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=AvpMOMSSZHs&list=PLNEK_Ejlx3x1D9Vq5kqeC3ZDEP7in4dqb&index=15)
 
@@ -253,12 +255,21 @@ In this section, we learn about Haskell tooling and the necessary concepts to st
     - Building and running our executable
 - Language extensions and Pragmas
     - Introduction
-    - NumericUnderscores
-    - TypeApplications
+    - `NumericUnderscores`
+    - `TypeApplications`
 
-### 14. Handling Errors
+### 14. Handling Errors [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F15-Handling-Errors.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=QkUCHFG1hK8&list=PLNEK_Ejlx3x1D9Vq5kqeC3ZDEP7in4dqb&index=16)
 
-- TODO
+- There're always `Exception`s to the rule
+- Speed-running `Exception`s with a dumb self-driving 🤖 car 🚗
+  - I'm the `Exception` cause I have `class` 😎
+  - `throw` all the `Exception`s you want. I'll `catch` them all!
+- `Maybe` give me a value? 🙏
+  - Benefits of optional values
+- Ok, you `Either` give me a value or a reason why you didn't!
+- From `Exception`s to optional values
+- Tradeoffs
+  - So, what should I use?
 
 ### 15. Learning on your own and Map
 
@@ -266,16 +277,15 @@ In this section, we learn about Haskell tooling and the necessary concepts to st
 - Hoogle
 - HaskellWiki
 - Walking through while teaching Map module
+- TODO
 
 ---
 
-#### Congratulations! 🥳 You can call yourself a (beginner) Haskell developer!
-
-#### YOU'RE READY FOR THE MARLOWE PIONEER PROGRAM! 🥳🎉 (Keep going for Plutus.)
+#### YOU'RE READY FOR MARLOWE! 🥳🎉 (Keep going for Plutus)
 
 ---
 
-### INTERMEDIATE SECTION - BASIC ABSTRACTIONS - 🐥⟶🐓
+### BEGINNER SECTION - BASIC ABSTRACTIONS - 🐥⟶🐓
 In this section, we learn about a few of the most useful and talked about Abstractions in Haskell.
 
 ---
@@ -301,7 +311,7 @@ In this section, we learn about a few of the most useful and talked about Abstra
 - Extracting the pattern
 - Complete definition (with all the details/laws)
 
-### x. Aeson
+### x. Aeson?
 
 - TODO (some project using Aeson)
 
@@ -341,17 +351,22 @@ In this section, we learn about a few of the most useful and talked about Abstra
 - mapM and mapM\_
 - filterM
 - foldM
+- ...
+
+---
+
+#### 🥳 CONGRATULATIONS! 🥳 You can call yourself a (beginner) Haskell developer!
 
 ---
 
 ### TODO: It keeps going, but I'm not sure about the outline yet. 😬
-
 Possible subjects:
-- Testing
-- TLP
-- Template Haskell
-- More abstractions
-- Programming patterns
+- More abstractions?
+- Testing?
+- Concurrency and Parallelism?
+- TLP?
+- Template Haskell?
+- ...
 
 ---
 
