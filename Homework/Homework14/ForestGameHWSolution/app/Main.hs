@@ -10,9 +10,11 @@ import User.Actions.Battle (battle)
 main :: IO ()
 main = do
   startingStamina <- randomRIO @Int (10_000, 20_000)
+
   putStrLn "\nYou're traped in a Forest, try to scape! Remember that you loose stamina with each step you take."
   gameLoop (startingStamina, level1forest)
  where
+  gameLoop :: (Int, Forest Int) -> IO ()
   gameLoop (_, FoundExit) = putStrLn "YOU'VE FOUND THE EXIT!!"
   gameLoop (s, _) | s <= 0 = putStrLn "You ran out of stamina and died -.-!"
   gameLoop (s, forest) = do
@@ -23,6 +25,10 @@ main = do
     battleDice <- randomRIO @Int (0, 3)
     case battleDice of
       2 -> do
-        r <- battle
+        youHealth <- randomRIO @Int (50, 100)
+        youAttack <- randomRIO @Int (50, 100)
+        golHealth <- randomRIO @Int (50, 100)
+        golAttack <- randomRIO @Int (50, 100)
+        r <- battle (youHealth,youAttack) (golHealth,golAttack)
         if r then continueLoop else return ()
       _ -> continueLoop
