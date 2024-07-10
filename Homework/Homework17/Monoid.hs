@@ -10,6 +10,21 @@ newtype Any = Any { getAny :: Bool } deriving (Show, Eq)
 
 -- TODO: Define the Semigroup and Monoid instances for All and Any
 
+instance Semigroup All where
+    a <> b = All $ (getAll a) && (getAll b)
+
+instance Monoid All where
+    mappend = (<>)
+    mempty = All True    
+
+
+instance Semigroup Any where
+    a <> b = Any $ (getAny a) || (getAny b)
+
+instance Monoid Any where
+    mappend = (<>)
+    mempty = Any False
+
 -- Test it out
 
 --- >>> All True <> All False <> All True
@@ -48,6 +63,14 @@ newtype Any = Any { getAny :: Bool } deriving (Show, Eq)
  -}
 
 newtype Log = Log [String] deriving (Show, Eq)
+
+instance Semigroup Log where
+    Log as <> Log bs = Log $ as ++ bs
+
+instance Monoid Log where
+    mappend = (<>)
+    mempty = Log []
+    
 
 -- TODO: Define the Semigroup and Monoid instances for Log
 
@@ -89,6 +112,13 @@ log3 = Log ["!"]
 data Config = Config { port :: Int, host :: String } deriving (Show, Eq)
 
 -- TODO: Define the Semigroup and Monoid instances for Config
+instance Semigroup Config where
+    a <> b =  b 
+
+instance Monoid Config where
+    mappend = (<>)
+    mempty = Config{port = 0, host="localhost"}    
+    mconcat = foldl (<>) mempty
 
 -- Test it out
 
@@ -133,8 +163,24 @@ c3 = Config { port = 4000, host = "example.com" }
 data Severity = Low | Medium | High | Critical deriving (Show, Eq, Ord)
 
 -- TODO: Define the Semigroup and Monoid instances for Severity
+instance Semigroup Severity where
+    s1 <> s2 = if s1 < s2 then s2 else s1
+
+instance Monoid Severity where
+    mempty = Critical
+    mappend s1 s2 = s1 <> s2
 
 -- TODO: Define the Emergency type
+
+data Emergency = Emergency {severity :: Severity, desc::String,resolved::All} deriving (Show,Eq)
+instance Semigroup Emergency where  
+    e1 <> e2 = Emergency (severity e1 <> severity e2) (desc e1 <> desc e2) (resolved e1 <> resolved e2)
+
+instance Monoid Emergency where
+    mempty = Emergency Low "" (All True)
+    mappend = (<>)
+    mconcat = foldr (<>) mempty  
+
 
 -- TODO: Define the Semigroup and Monoid instances for Emergency
 
@@ -172,3 +218,14 @@ e4 = Emergency Critical "You mother-in-law is coming over!; " (All False)
 
 --- >>> mconcat [e1, e2, e3, e4] == foldr (<>) mempty [e1, e2, e3, e4]
 -- True
+
+
+
+
+
+
+
+
+
+
+

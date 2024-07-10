@@ -16,10 +16,18 @@ l4, l5 :: NonEmpty Char
 l4 = 'h' :| "ello"
 l5 = 'w' :| "orld"
 
+
+-- 1 :| [2, 3]       <>  4 :| [5, 6]
+-- 1 :| ( 2 :| [3])  <>  4 :| [5, 6]
+
+
 --- As you can see, because we alwas have to provide the first `a`, we can never have an empty list.
 -- Now, define a Semigroup instance for NonEmpty:
 
 --  TODO: Define the Semigroup instance for NonEmpty
+instance Semigroup (NonEmpty a) where
+    (a :|[_]) <> (b:|bs)  = a :| (b:bs)  
+    (a :|as) <> bs  = a :| as <> bs  
 
 -- Test it out
 
@@ -31,6 +39,7 @@ l5 = 'w' :| "orld"
 
 --- >>> (l1 <> l2) <> l3 == l1 <> (l2 <> l3)
 -- True
+
 
 -- Now, try to define a Monoid instance for NonEmpty.
 -- You'll notice that it's not possible to do so because there's

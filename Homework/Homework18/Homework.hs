@@ -19,6 +19,11 @@ exampleRoseTree = RoseNode 1 [RoseNode 2 [], RoseNode 3 [RoseNode 4 []]]
 
 -- TODO: Implement the Functor instance for RoseTree
 
+instance  Functor RoseTree where
+    fmap :: (a -> b) -> RoseTree a -> RoseTree b
+    fmap f (RoseNode a []) =  RoseNode (f a) []
+    fmap f (RoseNode a t) =  RoseNode (f a) ((fmap . fmap) f t)
+
 -- Test it out:
 
 --- >>> fmap (+1) exampleRoseTree
@@ -61,7 +66,11 @@ dbResult = Just [Item ("Phone", Sum 50.0), Item ("Glasses", Sum 30.0)]
 Write the Functor instance for Item.
 -}
 
--- TODO
+instance Functor Item where
+    fmap :: (a -> b) -> (Item a) -> (Item b)
+    fmap f it = let pa = getItem it
+                in Item ("Phone", Sum 50.0)
+
 
 -- >>> fmap (*2) exampleItem
 -- Item {getItem = ("Phone",Sum {getSum = 100.0})}
